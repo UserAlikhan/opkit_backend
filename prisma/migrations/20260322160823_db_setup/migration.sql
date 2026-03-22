@@ -16,9 +16,9 @@ CREATE TABLE "Task" (
     "title" TEXT NOT NULL,
     "description" TEXT,
     "status" "TaskStatus" NOT NULL DEFAULT 'TODO',
+    "userId" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
-    "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );

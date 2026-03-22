@@ -9,11 +9,10 @@ export class TasksGateway {
     @WebSocketServer()
     server: Server
 
-    sendTaskStatusUpdate(taskId: number, status: string) {
+    sendTaskStatusUpdate(task: TaskType) {
         this.server.emit('taskStatusUpdated', {
-            id: taskId,
-            status: status,
-            timestamp: new Date()
+            ...task,
+            timestamp: new Date().toISOString()
         })
     }
 
