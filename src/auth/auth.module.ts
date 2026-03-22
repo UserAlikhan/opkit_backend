@@ -7,7 +7,7 @@ import { JwtStrategy } from './guards/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [
+imports: [
     ConfigModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
