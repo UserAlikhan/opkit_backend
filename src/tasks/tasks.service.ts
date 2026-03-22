@@ -18,12 +18,19 @@ export class TasksService {
     }
 
     async create(userId: number, dto: CreateTaskDto) {
-        return await this.prismaService.task.create({
+        const task = await this.prismaService.task.create({
             data: {
                 ...dto,
                 userId: userId,
             }
         })
+
+        if (!task) return
+
+        // отправляем событие о новой задаче
+        this.tasksGateway.sendTaskCreated(task)
+
+        return task
     }
 
     async update(taskId: number, dto: UpdateTaskDto) {
@@ -32,6 +39,7 @@ export class TasksService {
             data: dto,
         })
 
+        // отправляем событие об измененной задаче
         if (dto.status) {
             this.tasksGateway.sendTaskStatusUpdate(taskId, task.status)
         }
@@ -40,8 +48,15 @@ export class TasksService {
     }
 
     async remove(taskId: number) {
-        return await this.prismaService.task.delete({ 
+        const task = await this.prismaService.task.delete({ 
             where: { id: taskId } 
         })
+
+        if (!task) return
+
+        // отправляем событие об удаление задаче
+        this.tasksGateway.sendTaskDeleted(taskId)
+
+        return task
     }
 }

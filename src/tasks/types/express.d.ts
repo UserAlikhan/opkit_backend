@@ -6,3 +6,13 @@ export interface RequestWithUser extends Request {
         email: string
     }
 }
+
+export type TaskType = {
+    id: number
+    title: string
+    description: string | null
+    status: TaskStatus
+    created_at: Date
+    updated_at: Date
+    userId: number
+}
