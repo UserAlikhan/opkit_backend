@@ -1,6 +1,7 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { TaskStatus } from "generated/prisma/enums";
 
+// Dto для валидации данных для добавления task
 export class CreateTaskDto {
     @IsString()
     @IsNotEmpty({ message: "Title cannot be empty!" })
